@@ -10,10 +10,9 @@ library("ggplot2")
 #Set working directory
 setwd("C:/Users/curly/Desktop/Apple Genotyping/Methods/BAF Plots")
 
-#Set input and output paths, and PDF output paths
+#Set input and output paths
 input_dir <- "C:/Users/curly/Desktop/Apple Genotyping/Methods/BAF Plots/CNV_Inputs"
 output_dir <- "C:/Users/curly/Desktop/Apple Genotyping/Methods/BAF Plots/Output_Plots"
-output_pdf <- "C:/Users/curly/Desktop/Apple Genotyping/Methods/BAF Plots/Output_Plots/All_Plots.pdf"  
 
 #Read SNP BLAST list
 BLAST <- read.delim("BLAST results.tsv", header = TRUE, sep = "\t")
@@ -25,13 +24,6 @@ triploids <- triploids$V1
 files <- list.files(input_dir, pattern = ".txt", full.names = TRUE)
 files.dip <- files[!(files %in% triploids)]
 files.trip <- files[(files %in% triploids)]
-
-#Set PDF parameters - output path, dimensions, plots per page.
-pdf(file = output_pdf, width = 6, height = 8)
-par(mfrow = c(4,1))
-
-#Setting plot count to zero
-plot_count <- 0
 
 #Plot diploid BAF plots
 for (file in  files.dip){
@@ -50,25 +42,14 @@ for (file in  files.dip){
   #Removing file extension from filename
   file_base <- tools::file_path_sans_ext(basename(file))
   
-  #Plotting histogram and exporting as PNG
-  png(filename = file.path(output_dir, paste0(file_base,".png")), width = 1000, height = 600)
-  par(mar = c(5,5,4,2))
-  plot_baf(data, ploidy = 2, area_single = 0.01, add_expected_peaks = TRUE) + labs(title = paste(file_base))
+  #Plot, and export as PNG
+  png(filename = file.path(output_dir, paste0(file_base,".png")), width = 1500, height = 1000)
+  print(plot_baf(data, ploidy = 2, area_single = 0, dot.size = 2, font_size = 24, add_expected_peaks = TRUE) + labs(title = paste(file_base)))
   
   dev.off()
-  
-  #Plotting histogram for PDF
-  par(mar = c(3,4,2,4))
-  plot_baf(data, ploidy = 2, area_single = 0.01, add_expected_peaks = TRUE) + labs(title = paste(file_base))
-  
-  #Counting histograms plotted for PDF  
-  plot_count <- plot_count + 1
-  
-  #Making new page on PDF for every 4 histograms
-  if (plot_count %% 4 == 0) {
-    par(mfrow = c(4,1))
   }
-}
+
+
 
 #Plot triploid BAF plots
 for (file in  files.trip){
@@ -87,27 +68,14 @@ for (file in  files.trip){
   #Removing file extension from filename
   file_base <- tools::file_path_sans_ext(basename(file))
   
-  #Plotting histogram and exporting as PNG
-  png(filename = file.path(output_dir, paste0(file_base,".png")), width = 1000, height = 600)
-  par(mar = c(5,5,4,2))
-  plot_baf(data, ploidy = 3, area_single = 0.01, add_expected_peaks = TRUE) + labs(title = paste(file_base))
-  
-  dev.off()
-  
-  #Plotting histogram for PDF
-  par(mar = c(3,4,2,4))
-  plot_baf(data, ploidy = 3, area_single = 0.01, add_expected_peaks = TRUE) + labs(title = paste(file_base))
-  
-  #Counting histograms plotted for PDF  
-  plot_count <- plot_count + 1
-  
-  #Making new page on PDF for every 4 histograms
-  if (plot_count %% 4 == 0) {
-    par(mfrow = c(4,1))
-  }
+  #Plot, and export as PNG
+  png(filename = file.path(output_dir, paste0(file_base,".png")), width = 1500, height = 1000)
+  print(plot_baf(data, ploidy = 3, area_single = 0, dot.size = 2, font_size = 24, add_expected_peaks = TRUE) + labs(title = paste(file_base)))
+ 
+   dev.off()
 }
 
-dev.off()
+
 
 
 
