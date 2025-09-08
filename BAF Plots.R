@@ -1,11 +1,16 @@
-## This script produces plots of B Allele Frequency (BAF) throughout the apple HFTH1 genome. 
-# Each sample is plotted and saved to a PNG separately, with a PDF file saved that combines all
+## This script plots the B Allele Frequency (BAF) value of SNPs at their location in the apple genome HFTH1 v1.0.a1 (https://doi.org/10.1038/s41467-019-09518-x). 
+## Each sample is plotted and saved to a PNG separately, and a PDF files with all plots compiled is also saved.
 
+# Load Packages -----------------------------------------------------------
 
-#Load packages
 library("Qploidy")
 library("dplyr")
 library("ggplot2")
+
+
+
+
+# Set Working Directory and Input/Output Paths ----------------------------
 
 #Set working directory
 setwd("C:/Users/curly/Desktop/Apple Genotyping/Methods/BAF Plots")
@@ -14,10 +19,14 @@ setwd("C:/Users/curly/Desktop/Apple Genotyping/Methods/BAF Plots")
 input_dir <- "C:/Users/curly/Desktop/Apple Genotyping/Methods/BAF Plots/CNV_Inputs"
 output_dir <- "C:/Users/curly/Desktop/Apple Genotyping/Methods/BAF Plots/Output_Plots"
 
-#Read SNP BLAST list
+
+
+# Read SNP Locations from BLAST Search ------------------------------------
 BLAST <- read.delim("BLAST results.tsv", header = TRUE, sep = "\t")
-  
-#List the diploid and triploid CNV files separately
+
+
+
+# List Diploid and Triploid Samples ---------------------------------------
 triploids <- read.delim("TriploidSampleNames.txt", header=FALSE)
 triploids <- triploids$V1
 
@@ -25,7 +34,10 @@ files <- list.files(input_dir, pattern = ".txt", full.names = TRUE)
 files.dip <- files[!(files %in% triploids)]
 files.trip <- files[(files %in% triploids)]
 
-#Plot diploid BAF plots
+
+
+
+# Plot BAF for Diploids ---------------------------------------------------
 for (file in  files.dip){
   #Reading in data
   data <- read.table(file, header = TRUE,row.names = NULL)
@@ -51,7 +63,10 @@ for (file in  files.dip){
 
 
 
-#Plot triploid BAF plots
+
+# Plot BAF for Triploids --------------------------------------------------
+
+
 for (file in  files.trip){
   #Reading in data
   data <- read.table(file, header = TRUE,row.names = NULL)
