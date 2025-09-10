@@ -16,13 +16,19 @@ library("ggplot2")
 setwd("C:/Users/curly/Desktop/Apple Genotyping/Methods/BAF Plots/Inputs")
 
 #Set input and output paths
-input_dir <- "C:/Users/curly/Desktop/Apple Genotyping/Methods/BAF Plots/CNV_Inputs"
-output_dir <- "C:/Users/curly/Desktop/Apple Genotyping/Methods/BAF Plots/Output_Plots"
+input_dir <- "C:/Users/curly/Desktop/Apple Genotyping/Methods/BAF Plots/Inputs/CNV_Inputs"
+output_dir <- "C:/Users/curly/Desktop/Apple Genotyping/Results/B Allele Frequencies/BAF Plots"
+
+
+
+
 
 
 
 # Read SNP Locations from BLAST Search ------------------------------------
 BLAST <- read.delim("BLAST results.tsv", header = TRUE, sep = "\t")
+
+
 
 
 
@@ -33,6 +39,8 @@ triploids <- triploids$V1
 files <- list.files(input_dir, pattern = ".txt", full.names = TRUE)
 files.dip <- files[!(files %in% triploids)]
 files.trip <- files[(files %in% triploids)]
+
+
 
 
 
