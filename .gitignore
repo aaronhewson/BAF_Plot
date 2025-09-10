@@ -4,5 +4,4 @@
 .httr-oauth
 .DS_Store
 .quarto
-CNV_Inputs/
-Output_Plots/
+Inputs/
