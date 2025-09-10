@@ -13,7 +13,7 @@ library("ggplot2")
 # Set Working Directory and Input/Output Paths ----------------------------
 
 #Set working directory
-setwd("C:/Users/curly/Desktop/Apple Genotyping/Methods/BAF Plots")
+setwd("C:/Users/curly/Desktop/Apple Genotyping/Methods/BAF Plots/Inputs")
 
 #Set input and output paths
 input_dir <- "C:/Users/curly/Desktop/Apple Genotyping/Methods/BAF Plots/CNV_Inputs"
